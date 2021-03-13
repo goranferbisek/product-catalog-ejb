@@ -30,4 +30,20 @@ public class Catalog implements CatalogLocal {
 		this.entityManager.persist(item);		
 	}
 
+	@Override
+	public CatalogItem findItem(Long itemId) {
+		return this.entityManager.find(CatalogItem.class, itemId);
+	}
+
+	@Override
+	public void deleteItem(CatalogItem item) {
+		this.entityManager.remove(this.entityManager.contains(item) ? item : this.entityManager.merge(item));
+	}
+
+	@Override
+	public List<CatalogItem> searchByName(String name) {
+		return  this.entityManager.createQuery("select c from CatalogItem c " +
+				"where c.name like :name", CatalogItem.class).setParameter("name", "%" + name + "%").getResultList();
+	}
+
 }
