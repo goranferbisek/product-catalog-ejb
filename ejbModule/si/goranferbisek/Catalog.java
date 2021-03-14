@@ -46,4 +46,9 @@ public class Catalog implements CatalogLocal {
 				"where c.name like :name", CatalogItem.class).setParameter("name", "%" + name + "%").getResultList();
 	}
 
+	@Override
+	public void saveItem(CatalogItem item) {
+		this.entityManager.merge(item);
+	}
+
 }

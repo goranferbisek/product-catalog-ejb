@@ -16,4 +16,6 @@ public interface CatalogLocal {
 	public void deleteItem(CatalogItem item);
 	
 	public List<CatalogItem> searchByName(String name);
+	
+	public void saveItem(CatalogItem item);
 }
