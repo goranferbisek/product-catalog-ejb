@@ -15,6 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="CATALOG_ITEM")
@@ -22,23 +26,28 @@ public class CatalogItem {
 	
 	@Id
 	@Column(name="CATALOG_ITEM_ID")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long itemId;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Size(min = 0, max=3)
+	@ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(joinColumns = @JoinColumn(name="CATALOG_ITEM_ID")
-		,inverseJoinColumns = @JoinColumn(name="ITEM_MANAGER_ID"))
+		, inverseJoinColumns = @JoinColumn(name="ITEM_MANAGER_ID"))
 	private List<ItemManager> itemManagers = new ArrayList<>();
 
+	@NotBlank
 	@Column(name="NAME")
 	private String name;
 	
+	@Pattern(regexp = "^[A-Za-z]*$", message = "Must be letters")
 	@Column(name="MANUFACTURER")
 	private String manufacturer;
 	
+	@Pattern(regexp = "^[A-Za-z]{5,10}$", message = "Must be 5-10 letters")
 	@Column(name="DESCRIPTION")
 	private String description;
 	
+	@Future
 	@Column(name="AVAILABLE_DATE")
 	private LocalDate availableDate;
 	
