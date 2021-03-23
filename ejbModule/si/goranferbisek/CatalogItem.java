@@ -39,7 +39,7 @@ public class CatalogItem {
 	@Column(name="NAME")
 	private String name;
 	
-	@Alphabetic
+	@PermittedManufacturer
 	@Column(name="MANUFACTURER")
 	private String manufacturer;
 	
