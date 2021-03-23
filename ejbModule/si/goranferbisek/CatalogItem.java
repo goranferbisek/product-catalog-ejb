@@ -39,7 +39,7 @@ public class CatalogItem {
 	@Column(name="NAME")
 	private String name;
 	
-	@Pattern(regexp = "^[A-Za-z]*$", message = "Must be letters")
+	@Alphabetic
 	@Column(name="MANUFACTURER")
 	private String manufacturer;
 	
